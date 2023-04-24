@@ -7,12 +7,21 @@ cmake_policy(SET CMP0079 NEW)
 
 find_package(MPI 4.0 COMPONENTS C REQUIRED)
 
-add_library(echidna echidna.cc)
-target_include_directories(echidna PRIVATE ${MPI_C_INCLUDE_DIRS})
-target_include_directories(echidna INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
-target_compile_options(echidna PRIVATE ${MPI_C_COMPILE_OPTIONS})
-target_compile_definitions(echidna PRIVATE ${MPI_C_COMPILE_DEFINITIONS})
-target_link_libraries(echidna INTERFACE MPI::MPI_C echidna)
-set_target_properties(echidna PROPERTIES OUTPUT_NAME echidna)
+add_library(echidna INTERFACE)
+
+target_sources(echidna INTERFACE mutex.cc jobmanager.cc jobworker.cc)
+target_include_directories(echidna INTERFACE
+    ${MPI_C_INCLUDE_DIRS} ${CMAKE_CURRENT_SOURCE_DIR})
+
+target_compile_options(echidna INTERFACE ${MPI_C_COMPILE_OPTIONS})
+target_compile_definitions(echidna INTERFACE ${MPI_C_COMPILE_DEFINITIONS})
+
+target_link_libraries(echidna INTERFACE MPI::MPI_C)
+
+add_executable(mutex_demo mutex_demo.cc)
+target_link_libraries(mutex_demo echidna)
+
+add_executable(manager_demo manager_demo.cc)
+target_link_libraries(manager_demo echidna)
 
 # vim: set ft=cmake:

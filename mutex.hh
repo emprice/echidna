@@ -4,8 +4,8 @@
  * publication cited in the README.
  */
 
-#ifndef ECHIDNA_HH
-#define ECHIDNA_HH
+#ifndef ECHIDNA_MUTEX_HH
+#define ECHIDNA_MUTEX_HH
 
 #include <mpi.h>
 
@@ -58,10 +58,9 @@ struct Mutex
         int m_thisrank;     ///< Rank of this processor within `m_comm`
 
         MPI_Win m_wlwin;        ///< Window for waitlist
-        MPI_Datatype m_wltype;  ///< Datatype for waitlist
 
         int m_wlsize;                       ///< Size of waitlist on this rank
-        unsigned char *m_wldata;            ///< Common waitlist data
+        unsigned char *m_wldata;            ///< Primary waitlist data
         unsigned char *m_wldata_private;    ///< Private copy of waitlist data
 
         /**
@@ -74,6 +73,6 @@ struct Mutex
 
 }   // namespace echidna
 
-#endif      // ECHIDNA_HH
+#endif      // ECHIDNA_MUTEX_HH
 
 // vim: set ft=cpp.doxygen:

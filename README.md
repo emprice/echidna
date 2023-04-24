@@ -3,10 +3,10 @@ echidna
 
 *echidna: Half-woman, half-snake, and mother of the Lernaean Hydra*
 
-This repository exposes a simple C++ implementation of an MPI mutex based
-on the publication below. Full credit for this idea, the algorithm, and
-the example implementation in the paper go to those authors. Only the
-specific API and the CMake configuration were written by me.
+This repository exposes a modified C++ implementation of an MPI mutex based
+on the publication below. Full credit for the original idea and algorithm
+go to those authors. The specific API, the modifications to the algorithm,
+and the CMake configuration were written by me.
 
 ```bib
 @inproceedings{Ross+2005,
